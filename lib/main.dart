@@ -5,6 +5,7 @@ import 'pages/company_management_page.dart';
 import 'pages/login_page.dart';
 import 'pages/settlement_account_page.dart';
 import 'pages/super_dashboard_page.dart';
+import 'pages/user_reports_page.dart';
 import 'providers/auth_provider.dart';
 
 void main() {
@@ -55,6 +56,7 @@ class _PlatformDashboardState extends ConsumerState<PlatformDashboard> {
     const SuperDashboardPage(),
     const CompanyManagementPage(),
     const SettlementAccountPage(),
+    const UserReportsPage(),
     const Center(child: Text('リアルタイム監視 (実装予定)')),
   ];
 
@@ -107,6 +109,11 @@ class _PlatformDashboardState extends ConsumerState<PlatformDashboard> {
                 icon: Icon(Icons.payments_outlined),
                 selectedIcon: Icon(Icons.payments),
                 label: Text('精算管理'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.report_problem_outlined),
+                selectedIcon: Icon(Icons.report_problem),
+                label: Text('通報確認'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.monitor_heart_outlined),

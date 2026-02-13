@@ -149,6 +149,56 @@ class PlatformNotifier extends AsyncNotifier<PlatformStats?> {
       return false;
     }
   }
+
+  Future<List<UserReport>> fetchReports() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:8080/admin/platform/reports'),
+      );
+      if (response.statusCode == 200) {
+        final List data = jsonDecode(response.body);
+        return data.map((item) => UserReport.fromJson(item)).toList();
+      }
+    } catch (e) {
+      print('Error fetching reports: $e');
+    }
+    return [];
+  }
+}
+
+class UserReport {
+  final String id;
+  final String rideId;
+  final String reporterId;
+  final String reportedUserId;
+  final String reporterRole;
+  final String reason;
+  final String status;
+  final DateTime createdAt;
+
+  UserReport({
+    required this.id,
+    required this.rideId,
+    required this.reporterId,
+    required this.reportedUserId,
+    required this.reporterRole,
+    required this.reason,
+    required this.status,
+    required this.createdAt,
+  });
+
+  factory UserReport.fromJson(Map<String, dynamic> json) {
+    return UserReport(
+      id: json['id'],
+      rideId: json['ride_id'],
+      reporterId: json['reporter_id'],
+      reportedUserId: json['reported_user_id'],
+      reporterRole: json['reporter_role'],
+      reason: json['reason'],
+      status: json['status'],
+      createdAt: DateTime.parse(json['created_at']),
+    );
+  }
 }
 
 final platformProvider =
